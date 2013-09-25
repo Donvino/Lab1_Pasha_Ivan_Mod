@@ -82,7 +82,6 @@ public class PainterFrame extends Frame implements MouseListener,
     public void windowIconified(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         System.out.println("4");
-        RedrawImage();
     }
 
     @Override
@@ -97,7 +96,6 @@ public class PainterFrame extends Frame implements MouseListener,
     public void windowDeactivated(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         System.out.println("6");
-        RedrawImage();
     }
          }  
        );  
