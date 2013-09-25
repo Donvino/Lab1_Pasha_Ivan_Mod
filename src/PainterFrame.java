@@ -27,17 +27,80 @@ public class PainterFrame extends Frame implements MouseListener,
     PainterWindowAdapter adapterWindow = new PainterWindowAdapter(this);
     Color color = Color.black;
     int last_x, last_y;
-    ArrayList<Integer> prev_x = new ArrayList<Integer>();
-    ArrayList<Integer> prev_y = new ArrayList<Integer>();
-    ArrayList<Color> prev_color=new ArrayList<Color>();
+    public ArrayList<Integer> prev_x = new ArrayList<>();
+    public ArrayList<Integer> prev_y = new ArrayList<>();
+    public ArrayList<Color> prev_color=new ArrayList<>();
     public PainterFrame()
     {
         //super(title);
+        
         CreateMenu();
         addWindowListener(adapterWindow);
         //addWindowStateListener(adapterWindow);
         addMouseListener(this);
         addMouseMotionListener(this);
+        addWindowStateListener(new WindowStateListener() {
+        @Override
+        public void windowStateChanged(WindowEvent e) {
+            //System.out.print(e.getNewState());
+            if(e.getNewState()==0)
+            { 
+                //Рисует только 1 раз...не понятно почему...при 1ом развертывнии причем потом обратно непонятным образом затирается
+                //RedrawImage();
+               // repaint ();
+            }}});  
+        addWindowListener(   
+        new WindowAdapter()   
+        {  
+          int temp=0;
+            @Override
+          public void windowDeiconified(WindowEvent e )   
+          {  
+            RedrawImage();
+              
+           }
+          @Override
+    public void windowOpened(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("1");
+        //RedrawImage();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2");
+    }
+
+    @Override
+    public void windowClosed(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.\
+        System.out.println("3");
+    }
+
+    @Override
+    public void windowIconified(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("4");
+        RedrawImage();
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(temp!=0)RedrawImage();
+        temp++;
+        System.out.println("5");
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("6");
+        RedrawImage();
+    }
+         }  
+       );  
         //this.menuBar.
     }
     
@@ -95,10 +158,13 @@ public class PainterFrame extends Frame implements MouseListener,
     {
         for(int i=0;i<1;i++)
         {
-            Graphics ge = getGraphics();
-            ge.setColor(prev_color.get(i));
-            ge.drawLine(prev_x.get(i), prev_y.get(i), prev_x.get(i+1), prev_y.get(i+1));
+            Graphics g = getGraphics();
+            g.setColor(prev_color.get(i));
+            g.drawLine(prev_x.get(i), prev_y.get(i), prev_x.get(i+1), prev_y.get(i+1));
+            
+
         }
+        
     }
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -130,66 +196,79 @@ public class PainterFrame extends Frame implements MouseListener,
             last_y = evt.getY();
             prev_y.add(last_y);
             prev_color.add(color);
+            
         }
      }
         
     @Override
     public void mouseReleased(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //System.out.println("1");
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //System.out.println("2");
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //System.out.println("2");
     }
 
     @Override
     public void windowOpened(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2");
+        //RedrawImage();
     }
 
     @Override
     public void windowClosing(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2");
     }
 
     @Override
     public void windowClosed(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.\
-        
+        System.out.println("2");
     }
 
     @Override
     public void windowIconified(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2");
     }
 
     
     @Override
     public void windowDeiconified(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        RedrawImage();
+        //repaint ();
+        System.out.println("2");
     }
 
     @Override
     public void windowActivated(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+        RedrawImage();
+        System.out.println("2");
     }
 
     @Override
     public void windowDeactivated(WindowEvent we) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("2");
     }
 
     @Override
     public void mouseMoved(MouseEvent me) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //System.out.println("2");
     }
     
 }
