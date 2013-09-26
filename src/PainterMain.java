@@ -19,7 +19,7 @@ public class PainterMain {
     
     public static void main (String args[])
     {
-        final PainterFrame frameWindow = new PainterFrame();
+        PainterFrame frameWindow = new PainterFrame();
           
         
         /*frameWindow.addWindowStateListener(new WindowStateListener() {

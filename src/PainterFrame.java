@@ -5,6 +5,7 @@
  */
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -35,19 +36,24 @@ public class PainterFrame extends Frame
     private MenuBar menuBar;
     private Menu colorSubMenu;
     private MenuItem mSave;
-    private Graphics g;    
+    private Graphics g;
+    private PainterFrame painterFrame;
     PainterWindowAdapter adapterWindow = new PainterWindowAdapter(this);
     Color color = Color.black;
+    private CustomPanel panel;
+    private CustomCanvas canvas;
     
     class CustomPanel extends Panel {
+
         public CustomPanel() {
             this.add(new CustomCanvas(new Dimension(320, 240)));
         }
         
-        public CustomPanel (Dimension d)
+        public CustomPanel (CustomCanvas c)
         {
-            this.add(new CustomCanvas (d));
+            this.add((canvas));
         }
+        
     }
     
     class CustomCanvas extends Canvas
@@ -59,12 +65,18 @@ public class PainterFrame extends Frame
             private MouseAdapter handler = new MouseHandler();
             private Dimension dimension;
             int temp=0;
+    
             CustomCanvas(Dimension dimension) {
                 this.dimension = dimension;
                 this.setBackground(Color.white);
                 this.addMouseListener(handler);
                 this.addMouseMotionListener(handler);
                 this.locations.add(sentinel);
+            }
+            
+            public void setDimention(Dimension d)
+            {
+                this.dimension = d;
             }
             
             @Override
@@ -130,11 +142,13 @@ public class PainterFrame extends Frame
     public PainterFrame()
     {
         //super(title);
-        
         CreateMenu();
         addWindowListener(adapterWindow);
         this.setSize(500, 350);
-        this.add(new CustomPanel(this.getSize()));
+        canvas = new CustomCanvas(this.getSize());
+        panel = new CustomPanel(canvas);
+        this.add(panel);
+        painterFrame = this;
     }
     
     private void CreateMenu()
@@ -151,6 +165,19 @@ public class PainterFrame extends Frame
                     @Override public void actionPerformed(ActionEvent e)
                     {
                         System.out.println("Saving file >_< Thanks,North People!!!");
+                        
+                        BufferedImage image = new BufferedImage(canvas.getWidth(), canvas.getHeight(), BufferedImage.TYPE_INT_RGB);
+                        Graphics2D g2 = (Graphics2D) image.getGraphics();
+                                               
+                        canvas.printAll(g2);
+                        try{
+                            ImageIO.write(image, "png", new File("c:/tmp/image.png"));
+                        }
+                        catch (Exception exc)
+                        {
+                            System.out.println("Image saving fuckup");
+                        }
+                            //System.out.println((painterFrame.getComponents()).toString());//        painterFrame.getComponent()
                     }
                 });
         for(int i=0;i<colors.length;i++)
