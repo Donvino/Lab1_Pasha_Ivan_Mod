@@ -17,6 +17,9 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -149,6 +152,14 @@ public class PainterFrame extends Frame
         panel = new CustomPanel(canvas);
         this.add(panel);
         painterFrame = this;
+        this.addComponentListener(new ComponentAdapter(){
+                                    @Override
+                                     public void componentResized(ComponentEvent e)
+                                     {
+                                         if(painterFrame.getSize() != canvas.getSize())
+                                            canvas.setDimention(painterFrame.getSize());
+                                            canvas.getPreferredSize();
+                                     }});
     }
     
     private void CreateMenu()
@@ -171,7 +182,9 @@ public class PainterFrame extends Frame
                                                
                         canvas.printAll(g2);
                         try{
-                            ImageIO.write(image, "png", new File("C:/image.png"));
+                            File dir = new File("c:/tmp/");
+                            dir.mkdir();
+                            ImageIO.write(image, "png", new File("c:/tmp/image.png"));
                         }
                         catch (Exception exc)
                         {
