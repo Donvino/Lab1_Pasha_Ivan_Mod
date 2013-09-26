@@ -52,6 +52,5 @@ class PainterMouseAdapter extends MouseAdapter{
      {   
          color=_color;
      }
-        
-
+       
 }
