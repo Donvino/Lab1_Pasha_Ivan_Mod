@@ -52,7 +52,7 @@ public class PainterMain {
         
     });*/
         
-        frameWindow.setTitle("Paint");
+        frameWindow.setTitle("North People's Paint");
         frameWindow.setVisible(true);
     }
     

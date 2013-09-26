@@ -22,10 +22,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Ilya
- */
+
 public class PainterFrame extends Frame                                      
 {
     //Menu class variables
@@ -50,17 +47,18 @@ public class PainterFrame extends Frame
     
     class CustomCanvas extends Canvas
     {
-            private List<Point> locations = new ArrayList<Point>();
+            private List<Point> locations = new ArrayList<>();
+            private List<Color> ColorArray=new ArrayList<>();
             private Point sentinel = new Point();
             private MouseAdapter handler = new MouseHandler();
             private Dimension dimension;
         
             CustomCanvas(Dimension dimension) {
-            this.dimension = dimension;
-            this.setBackground(Color.white);
-            this.addMouseListener(handler);
-            this.addMouseMotionListener(handler);
-            this.locations.add(sentinel);
+                this.dimension = dimension;
+                this.setBackground(Color.white);
+                this.addMouseListener(handler);
+                this.addMouseMotionListener(handler);
+                this.locations.add(sentinel);
             }
             
             @Override
@@ -70,9 +68,10 @@ public class PainterFrame extends Frame
 
             @Override
             public void paint(Graphics g) {
-                g.setColor(Color.blue);
+                //g.setColor(Color.blue);
                 Point p1 = locations.get(0);
                 for (Point p2 : locations.subList(1, locations.size())) {
+                    g.setColor(ColorArray.get(locations.indexOf(p2)));
                     g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     p1 = p2;
                 }
@@ -81,9 +80,9 @@ public class PainterFrame extends Frame
             @Override
             public void update(Graphics g) {
                 paint(g);
-                g.clearRect(0, getHeight() - 24, 50, 20); // to background
-                g.setColor(Color.red);
-                g.drawString(String.valueOf(locations.size()), 8, getHeight() - 8);
+                //g.clearRect(0, getHeight() - 24, 50, 20); // to background
+                //g.setColor(Color.red);
+                //g.drawString(String.valueOf(locations.size()), 8, getHeight() - 8);
             }
             
         private class MouseHandler extends MouseAdapter {
@@ -92,12 +91,14 @@ public class PainterFrame extends Frame
         public void mousePressed(MouseEvent e) {
             if (locations.get(0) == sentinel) { // reference identity
                 locations.set(0, new Point(e.getX(), e.getY()));
+                ColorArray.add(color);
                 }
             }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             locations.add(new Point(e.getX(), e.getY()));
+            ColorArray.add(color);
             repaint();
                 }
         }
@@ -120,7 +121,7 @@ public class PainterFrame extends Frame
         mSave = new MenuItem("Save");
         colorSubMenu = new Menu("Choose Color...");
         
-        final String[] colors = {"red","yellow","green","blue","purple","black"};
+        final String[] colors = {"red","yellow","green","blue","magenta","black"};
         for(int i=0;i<colors.length;i++)
         {
             final int ii = i;
