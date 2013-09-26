@@ -171,7 +171,7 @@ public class PainterFrame extends Frame
                                                
                         canvas.printAll(g2);
                         try{
-                            ImageIO.write(image, "png", new File("c:/tmp/image.png"));
+                            ImageIO.write(image, "png", new File("C:/image.png"));
                         }
                         catch (Exception exc)
                         {
