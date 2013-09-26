@@ -52,7 +52,6 @@ public class PainterMain {
         
     });*/
         
-        frameWindow.setSize(500, 350);
         frameWindow.setTitle("Paint");
         frameWindow.setVisible(true);
     }
