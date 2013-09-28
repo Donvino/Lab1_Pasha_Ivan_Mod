@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.Frame;
 import java.awt.event.*;
 /**
  *
- * @author Ilya
+* this project is developed by North Poeople, any use and coppy is extremly dangereous for you health and safety, please don't try it at home!
  */
 public class PainterWindowAdapter extends WindowAdapter
 {
@@ -19,6 +20,9 @@ public class PainterWindowAdapter extends WindowAdapter
     
     @Override public void windowClosing(WindowEvent evt)
     {
+        //dispose(); -освобождает память
+        Frame frame=(Frame)evt.getSource();
+        frame.dispose();
         System.exit(0);
     }
     

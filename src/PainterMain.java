@@ -13,7 +13,7 @@ import java.awt.event.WindowAdapter;
 
 /**
  *
- * @author Ilya
+ * this project is developed by North Poeople, any use and coppy is extremly dangereous for you health and safety, please don't try it at home!
  */
 public class PainterMain {
     

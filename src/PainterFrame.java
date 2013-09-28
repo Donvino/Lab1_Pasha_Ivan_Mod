@@ -95,6 +95,7 @@ public class PainterFrame extends Frame
                     g.setColor(ColorArray.get(locations.indexOf(p2)));
                     if(AreThePointConnected.get(locations.indexOf(p2)-1)==Boolean.TRUE){
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
+                        //есть что-то типа drawpoint
                         p1 = p2;
                     }
                     else p1 = p2;

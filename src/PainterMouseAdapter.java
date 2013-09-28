@@ -9,7 +9,8 @@ import java.awt.event.*;
 
 /**
  *
- * @author Ilya
+ * this project is developed by North Poeople, any use and coppy is extremly dangereous for you health and safety, please don't try it at home!
+ 
  */
 
 //NOT USED!!!!!!!!
